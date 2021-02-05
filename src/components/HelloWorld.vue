@@ -1,3 +1,9 @@
+<!--
+ * @Description: 
+ * @Author: yaolin
+ * @Date: 2021-02-05 09:21:38
+ * @LastEditors: yaolin
+-->
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -32,11 +38,26 @@
 </template>
 
 <script>
+// import Vue from 'vue'
+import axios from 'axios'
+// // import VueAxios from 'vue-axios'
+
+// Vue.use(axios)
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  methods:{
+    getUrl: function() {
+    this.$get('https://www.fastmock.site/mock/763365f7578e614982b60a99bdc10127/api/userinfo').then(response => {
+        console.log(response);
+      })
+    }
+  },
+  created() {
+    this.getUrl()
+  },
 }
 </script>
 
