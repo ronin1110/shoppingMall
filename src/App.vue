@@ -1,3 +1,9 @@
+<!--
+ * @Description: 
+ * @Author: yaolin
+ * @Date: 2021-02-05 09:21:38
+ * @LastEditors: yaolin
+-->
 <template>
   <div id="app">
     <div id="nav">
