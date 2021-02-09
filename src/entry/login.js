@@ -6,7 +6,7 @@
  */
 import Vue from 'vue'
 import Login from '../Login.vue'
-import router from '../router/loginRouter'
+// import router from '../router/loginRouter'
 import store from '../store'
 import axios from "axios";
 import Vant from 'vant';
