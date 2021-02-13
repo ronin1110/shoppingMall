@@ -33,13 +33,13 @@ export default {
   },
   computed: {
     address() {
-      return this.$store.state.address
+      return this.$store.state.position.name
     }
   },
   methods: {
     choiceAdress(el) {
       // console.log(el.target);
-      this.$router.replace('lalal')
+      this.$router.replace('map')
     }
   }
 }

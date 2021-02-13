@@ -12,8 +12,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     address:'',
+    position: {}
   },
   mutations: {
+    changeAddress(state,position) {
+      this.state.position = position
+    }
   },
   actions: {
   },

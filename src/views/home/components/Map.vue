@@ -8,10 +8,13 @@
   <div id="map">
     <van-nav-bar
       title="请选择地址"
+      right-text='确定'
       left-text="返回"
       left-arrow
       fixed
-      @click-left="back"/>
+      @click-left="back"
+      @click-right="sure"
+      />
       
     <div id="mapMain">
 
@@ -39,6 +42,11 @@ export default {
   components: {
 
   },
+  computed: {
+    // position() {
+    //   return this.$store.state.position
+    // }
+  },
   data(){
     // var this = this
     // this.city = this.city || '杭州';
@@ -46,12 +54,11 @@ export default {
       // city: '杭州',
       marker: {},
       map: {},
-      position:'',
       user: {
         position: [114.397169, 30.50576],
         content: ""
       },
-      
+      position:{},
       dataList: [],
       center: [114.397169, 30.50576],
 
@@ -74,13 +81,18 @@ export default {
       this.map.add(this.marker);
     },
     back() {
-      this.$router.back()
+      this.$router.push('home')
+    },
+    sure() {
+      this.$store.commit('changeAddress', this.position)
+      // console.log(this.$store.state.position.name);
+      this.$router.push('home')
     },
     initMap() {
       // let marker={}
       let that = this
       this.map = new AMap.Map("mapMain", {
-        zoom: 15, //级别
+        zoom: 16, //级别
         // center: [113.324, 23.1005], //中心点坐标
         // viewMode: "3D", //使用3D视图
       })
@@ -102,6 +114,7 @@ export default {
             buttonPosition: 'LB'
         })
         that.map.addControl(geolocation)
+        // 开始的时候定位
         // geolocation.getCurrentPosition();
         // AMap.event.addListener(geolocation, 'complete', (e) => {
         //     // console.log(e) // 定位成功之后做的事
@@ -118,7 +131,7 @@ export default {
 
       })
       that.map.on('complete', function() {
-        console.log('完成');
+        console.log('地图完成');
       })
       that.map.on('click', function(e) {
         that.map.remove(that.marker)
@@ -186,8 +199,15 @@ export default {
 
   },
   mounted(){
+    this.position = this.$store.state.position 
     this.initMap()
-    // this.getData()
+    
+    console.log(this.position.location);
+    if(this.position.location) {
+      this.center = [this.position.location.lng, this.position.location.lat];
+    }
+
+    this.getData()
   },
   activated() {
     this.initMap()

@@ -9,11 +9,13 @@
     <div>
       <Header></Header>
     </div>
-
-    <!-- <div id="test"></div> -->
-    <!-- <div class="Map">
-      <Map></Map>
+    <div class="shuffling">
+      <Banner></Banner>
+    </div>
+    <!-- <div>
+      <BannerTest></BannerTest>  
     </div> -->
+
 
 
   </div>
@@ -21,14 +23,15 @@
 
 <script>
 import Header from './components/Header.vue'
-import Map from './components/Map.vue'
+import Banner from './components/Banner.vue'
 export default {
   props: {
 
   },
   components: {
     Header,
-    Map
+    Banner,
+
   },
   data(){
     return {
@@ -46,11 +49,14 @@ export default {
 
 <style lang="less" scoped>
 #home{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   background-image: url('../../assets/loginPics/pic1.jpg');
   background-position: 100% 100%;
 }
 #test{
-  width: 100vw;
-  height: 90vh;
+
 }
 </style>
