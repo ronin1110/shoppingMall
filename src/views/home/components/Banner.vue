@@ -5,10 +5,10 @@
  * @LastEditors: yaolin
 -->
 <template>
-  <div class="recommendPage">
+  <div class="banner">
     <swiper :options="swiperOption" ref="mySwiper">
-      <swiperSlide v-for="(img,index) in imgs" :key="index">
-        <img width="100%" height="200px"  :src="img">
+      <swiperSlide v-for="(img,index) in imgs" :key="index" class="slide" >
+        <img width="99%" height="200px"  :src="img">
       </swiperSlide>
       <div class="swiper-pagination" slot="pagination"></div>
       <!-- <div class="swiper-button-prev" slot="button-prev"></div>
@@ -40,7 +40,7 @@ export default {
       swiperOption: {
         loop: true,
         autoplay: {
-          delay: 3000,
+          delay: 2000,
           stopOnLastSlide: false,
           disableOnInteraction: false
         },
@@ -72,18 +72,33 @@ export default {
 };
 </script>
 <style scoped >
-.recommendPage .swiper-container{
+.banner{
   position: relative;
   width: 100%;
-  height: 200px;
-  background: pink;
 }  
-.recommendPage .swiper-container .swiper-slide{
+/* .banner .swiper-container .swiper-slide{
   width: 100%;
   line-height: 200px;
   background: yellowgreen;
   color: #000;
   font-size: 16px;
   text-align: center;
+} */
+.swiper-pagination{
+  /* width: 100%; */
+}
+.swiper-wrapper{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.swiper-slide{
+  /* margin: 1rem; */
+  display: flex;
+  justify-content: center;
+}
+img{
+  border-radius: 2rem;
+  /* margin: .5rem; */
 }
 </style>
