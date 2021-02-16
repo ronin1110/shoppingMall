@@ -33,30 +33,61 @@
       <TitleWrapper></TitleWrapper>
     </div>
     <div id="goodItems">
-      <GoodItem></GoodItem>
-      <GoodItem></GoodItem>
-      <GoodItem></GoodItem>
-      <GoodItem></GoodItem>
+            <GoodItem v-for="(item, index) in lists_0" :key="index" :item='item'></GoodItem>
     </div>
     <div class="itemContain">
-      <van-tabs v-model="active" swipeable animated>
-        <van-tab v-for="index in 4" :title="'选项 ' + index" :key="index">
+      <van-tabs  v-model="active" color='#3bba63' background='#eee' title-active-color='#3bba63' swipeable animated sticky>
+        <van-tab>
           <template #title>
+            <div>猜你喜欢</div>
           </template>
+          <div class="item">
+            <GoodItem v-for="(item, index) in lists_0" :key="index" :item='item'></GoodItem>
+          </div>
+        </van-tab>
+        <van-tab>
+          <template #title>
+            <div>特价促销</div>
+          </template>
+          <div class="item">
+            <GoodItem v-for="(item, index) in lists_1" :key="index" :item='item'></GoodItem>
+          </div>
+          <!-- <GoodItem></GoodItem> -->
+
+        </van-tab>
+        <van-tab>
+          <template #title>
+            <div>丰盛午餐</div>
+          </template>
+          <div class="item">
+            <GoodItem v-for="(item, index) in lists_2" :key="index" :item='item'></GoodItem>
+          </div>
           
-          内容 {{ index }}
-          <GoodItem></GoodItem>
+          <!-- <GoodItem></GoodItem> -->
+
+        </van-tab>
+        <van-tab>
+          <template #title>
+            <div>火锅到家</div>
+          </template>
+          <div class="item">
+            <GoodItem v-for="(item, index) in lists_3" :key="index" :item='item'></GoodItem>
+          </div>
+          <!-- <GoodItem></GoodItem> -->
+
+        </van-tab>
+        <van-tab>
+          <template #title>
+            <div>时令新品</div>
+          </template>
+          <div class="item">
+            <GoodItem v-for="(item, index) in lists_4" :key="index" :item='item'></GoodItem>
+          </div>
+          <!-- <GoodItem></GoodItem> -->
 
         </van-tab>
       </van-tabs>
     </div>
-
-    
-
-
-
-
-
   </div>
 </template>
 
@@ -83,14 +114,58 @@ export default {
   },
   data(){
     return {
-      active: 0
+      active: 0,
+      lists_0:[],
+      lists_1:[],
+      lists_2:[],
+      lists_3:[],
+      lists_4:[]
     }
   },
   methods: {
+    getData() {
+      
+      let data = {
+        // phone: this.userLogin.phone,
+        // password:this.userLogin.password
+      }
+      let url='/goodsData'
 
+      this.$post(url, data).then(res => {
+        if(res.code = 200) {
+          this.lists_0 = res.data.lists
+        }
+      })
+      this.$post(url, data).then(res => {
+        if(res.code = 200) {
+          this.lists_1 = res.data.lists
+        }
+      })
+      this.$post(url, data).then(res => {
+        if(res.code = 200) {
+          this.lists_2 = res.data.lists
+        }
+      })
+      this.$post(url, data).then(res => {
+        if(res.code = 200) {
+          this.lists_3 = res.data.lists
+        }
+      })
+      this.$post(url, data).then(res => {
+        if(res.code = 200) {
+          this.lists_4 = res.data.lists
+        }
+      })
+
+
+    }
   },
   mounted() {
-    
+    this.lists_0 = this.getData()
+    this.lists_1 = this.getData()
+    this.lists_2 = this.getData()
+    this.lists_3 = this.getData()
+    this.lists_4 = this.getData()
   },
 }
 </script>
@@ -132,7 +207,15 @@ export default {
 }
 #goodItems{
   display:flex;
+  padding: 0;
   overflow-x: scroll;
-  scrollbar-width: 0px;
+  overflow-y: hidden;
+  &::-webkit-scrollbar{
+    background-color:transparent;
+  }
+}
+.item{
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

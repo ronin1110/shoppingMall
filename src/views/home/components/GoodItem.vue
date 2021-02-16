@@ -5,9 +5,9 @@
  * @LastEditors: yaolin
 -->
 <template>
-  <div class="goodItem">
+  <div class="goodItem" v-if="item">
     <div class="pic">
-      <img :src="item.imgUrl" width="120px" height="120px" alt="">
+      <img :src="item.imgUrl" width="150px" height="150px" alt="">
     </div>
     <div class="introduce">{{item.introduce}}</div>
     <div class="priceOut">
@@ -27,19 +27,19 @@
 <script>
 export default {
   props: {
-
+    item:Object
   },
   components: {
 
   },
   data(){
     return {
-      item: {
-        imgUrl:require('../../../assets/loginPics/pic2.jpg'),
-        introduce:'美国车厘子 250g',
-        oldPrice: '19.2',
-        newPrice: '10.2',
-      }
+      // item: {
+      //   imgUrl:require('../../../assets/loginPics/pic2.jpg'),
+      //   introduce:'美国车厘子 250g',
+      //   oldPrice: '19.2',
+      //   newPrice: '10.2',
+      // }
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
 
 <style lang="less" scoped>
 .goodItem{
-  width: 150px;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;

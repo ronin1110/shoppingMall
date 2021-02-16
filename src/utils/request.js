@@ -11,7 +11,7 @@ let baseUrl = 'https://www.fastmock.site/mock/763365f7578e614982b60a99bdc10127/a
 
 const service = axios.create({
   baseURL: baseUrl,
-  timeout: 3*1000,
+  // timeout: 5*1000,
   headers:{
     'name': 'yaolin',
     'age': 14
