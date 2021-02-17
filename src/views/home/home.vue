@@ -33,8 +33,9 @@
       <TitleWrapper></TitleWrapper>
     </div>
     <div id="goodItems">
-            <GoodItem v-for="(item, index) in lists_0" :key="index" :item='item'></GoodItem>
+      <GoodItem v-for="(item, index) in lists_0" :key="index" :item='item'></GoodItem>
     </div>
+    
     <div class="itemContain">
       <van-tabs  v-model="active" color='#3bba63' background='#eee' title-active-color='#3bba63' swipeable animated sticky>
         <van-tab>
@@ -161,11 +162,7 @@ export default {
     }
   },
   mounted() {
-    this.lists_0 = this.getData()
-    this.lists_1 = this.getData()
-    this.lists_2 = this.getData()
-    this.lists_3 = this.getData()
-    this.lists_4 = this.getData()
+    this.getData()
   },
 }
 </script>

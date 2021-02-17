@@ -20,6 +20,11 @@ const routes = [
     name: 'map',
     component: () => import('../views/home/components/Map.vue')
   },
+  {
+    path: '/category',
+    name: 'category',
+    component: () => import('../views/category/category.vue')
+  },
 
 ]
 
