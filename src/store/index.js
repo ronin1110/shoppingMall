@@ -12,7 +12,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     address:'',
-    position: {}
+    position: {},
+
+    cart:{}
   },
   mutations: {
     changeAddress(state,position) {
