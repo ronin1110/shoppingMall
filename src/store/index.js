@@ -14,11 +14,15 @@ export default new Vuex.Store({
     address:'',
     position: {},
 
-    cart:{}
+    cart: localStorage['cart'] ? JSON.parse(localStorage['cart']) : []
   },
   mutations: {
     changeAddress(state,position) {
       this.state.position = position
+    },
+    addGood(state,item){
+      state.cart.push(item)
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     }
   },
   actions: {

@@ -7,7 +7,7 @@
 <template>
   <div class="goodDetailComponent">
     <div class="header">
-      <van-nav-bar title="商品详情" @click-left='back' left-text="返回" left-arrow>
+      <van-nav-bar title="商品详情" fixed @click-left='back' left-text="返回" left-arrow>
         <!-- <template #right>
           <van-icon name="search" size="18" />
         </template> -->
@@ -53,12 +53,11 @@
 
     <div class="footer">
       <van-goods-action>
-        <van-goods-action-icon icon="cart-o" text="购物车" @click="handleClickCart" />
+        <van-goods-action-icon icon="cart-o" text="购物车" @click="toCart" />
         <van-goods-action-button
           type="danger"
           text="加入购物车"
-          @click="onClickButton"
-        />
+          @click="handleAddCart"/>
       </van-goods-action>
     </div>
   </div>
@@ -92,10 +91,10 @@ export default {
     back() {
       this.$router.back()
     },
-    onClickButton() {
-      
+    handleAddCart() {
+      this.$store.commit('addGood', this.item)
     },
-    handleClickCart() {
+    toCart() {
       this.$router.push('cart')
     }
   }
