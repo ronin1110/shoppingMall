@@ -6,17 +6,17 @@
 -->
 <template>
   <div class="goodItem" v-if="item">
-    <div class="pic">
-      <img :src="item.imgUrl" width="150px" height="150px" alt="">
+    <div class="pic" @click="toDetail">
+      <img :src="item.imgUrls[0]" width="150px" height="150px" alt="">
     </div>
-    <div class="introduce">{{item.introduce}}</div>
+    <div class="introduce">{{item.title}}</div>
     <div class="priceOut">
       <div class="priceIn">
-        <div class="newPrice">￥{{item.newPrice}}</div>
+        <div class="newPrice">￥{{item.price}}</div>
         <div class="oldPrice">￥{{item.oldPrice}}</div>
       </div>
       <div class="cart">
-        <van-icon size='1.5rem' color='white' name="cart-o"/>
+        <van-icon size='1.5rem' @click="handleAddCart" color='white' name="cart-o"/>
       </div>
 
     </div>
@@ -38,12 +38,18 @@ export default {
       //   imgUrl:require('../../../assets/loginPics/pic2.jpg'),
       //   introduce:'美国车厘子 250g',
       //   oldPrice: '19.2',
-      //   newPrice: '10.2',
+      //   price: '10.2',
       // }
     }
   },
   methods: {
-
+    handleAddCart() {
+      this.$store.commit('addGood', this.item)
+      this.$notify({ type: 'success', message: '添加成功' })
+    },
+    toDetail() {
+      this.$router.push('goodDetail')
+    }
   }
 }
 </script>

@@ -16,7 +16,6 @@ import '@/utils/request.js'
 Vue.config.productionTip = false
 Vue.use(Vant)
 new Vue({
-  router,
   store,
   axios,
   render: h => h(Login)

@@ -5,17 +5,22 @@
  * @LastEditors: yaolin
 -->
 <template>
-  <div class="cartComponents">
+  <div class="cartComponents" v-if="reFresh">
     <div class="header">
       <van-nav-bar
         fixed
         title="购物车"
         right-text="删除"
-        @click-right="deleteItem"/>
+        @click-right="deleteGood"/>
     </div>
-    <div class="contain">
-      <CartItem v-for="(item, index) in goodList" :key="index" :item='item'></CartItem>
+    
+    <div class="contain" >
+      <CartItem :index='index' v-for="(item, index) in goodList" :key="index" :item='item'></CartItem>
     </div>
+    <div v-if="goodList == 0">
+      <van-empty description="购物车为空" />
+    </div>
+
     <div class="line">
       <van-divider
         :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }">
@@ -27,8 +32,9 @@
     </div>
     
     <div class="submitBar">
-      <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit">
+      <van-submit-bar :price="sum * 100" button-text="提交订单" @submit="onSubmit">
         <van-checkbox v-model="checkAll">全选</van-checkbox>
+        <!-- <div style="margin-left:1rem">已选{{cartItemNum}}件</div> -->
       </van-submit-bar>
     </div>
   </div>
@@ -47,21 +53,52 @@ export default {
   },
   data(){
     return {
-      checkAll:'false',
-      otherGood:[]
+      checkAll:false,
+      otherGood:[],
+      reFresh: true
     }
   },
   computed: {
+    // checkAll() {
+    //   return this.$store.state.checkAll
+    // },
+    choiceTitles() {
+      return this.$store.state.choiceTitles
+    },
     goodList() {
       return this.$store.state.cart
+    },
+    cartItemNum(){
+      return this.$store.getters.cartItemNum
+    },
+    sum() {
+      console.log(this.$store.state.sum); 
+      return this.$store.state.sum
+    }
+  },
+  watch: {
+    checkAll() {
+      this.$store.commit('changeCheckAll')
     }
   },
   methods: {
-    deleteItem() {
+    deleteGood() {
+      this.choiceTitles.forEach(title => {
+        this.$store.commit('deleteGood', title)
+        this.reFresh= false // 骚东西，通过v-if来实现重绘
+        this.$nextTick(()=>{
+          this.reFresh = true
+        })
+      });
+
+      this.$store.commit('clearTitle')
+      this.$store.commit('clearSum')
+      this.checkAll = !this.checkAll
+      // this.$store.commit('changeCheckAll')
 
     },
     onSubmit() {
-      
+      this.$toast.success('没得提交')
     },
     getOtherGoods() {
       let data = {
@@ -69,7 +106,6 @@ export default {
         // password:this.userLogin.password
       }
       let url='/goodsData'
-
       this.$post(url, data).then(res => {
         if(res.code = 200) {
           this.otherGood = res.data.lists
@@ -93,6 +129,8 @@ export default {
 .Guess{
   display: flex;
   flex-wrap: wrap;
+  padding: 1rem 0;
+  margin-bottom: 100px;
 }
 .submitBar{
   position: fixed;

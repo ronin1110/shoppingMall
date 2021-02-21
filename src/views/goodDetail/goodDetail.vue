@@ -93,6 +93,8 @@ export default {
     },
     handleAddCart() {
       this.$store.commit('addGood', this.item)
+      this.$notify({ type: 'success', message: '添加成功' })
+      this.$router.push('cart')
     },
     toCart() {
       this.$router.push('cart')

@@ -5,7 +5,7 @@
  * @LastEditors: yaolin
 -->
 <template>
-  <div class="searchComponent">
+  <div class="searchComponent" @click="search">
     <van-icon name="search" size='1.5rem' />
     <div>输入商品名称</div>
   </div>
@@ -30,6 +30,9 @@ export default {
     }
   },
   methods: {
+    search() {
+      this.$toast.success('功能没做呢');
+    },
     choiceAdress(el) {
       // console.log(el.target);
       this.$router.replace('map')

@@ -9,7 +9,7 @@
     <div class="checkBox">
       <van-checkbox v-model="checked"></van-checkbox>
     </div>
-    <div class="imgContain">
+    <div class="imgContain" @click="toDetail">
       <van-image :src="item.imgUrls[0]" fit="contain" width='100'  />
     </div>
     <div class="info">
@@ -21,7 +21,7 @@
           ￥{{item.price}}
         </div>
         <div class="num">
-          <van-stepper v-model="item.num" integer />
+          <van-stepper v-model="num" @minus='reduce' @plus='add' integer />
         </div>
       </div>
     </div>
@@ -31,14 +31,22 @@
 <script>
 export default {
   props: {
-    item: Object
+    item: Object,
+    index:Number
   },
   components: {
 
   },
+  computed: {
+    checkAll() {
+      return this.$store.state.checkAll
+    },
+
+  },
   data(){
     return {
-      checked:true,
+      checked:false,
+      num:1
       // item:{
       //   num:1,
       //   imgUrls:[require('../../../assets/loginPics/pic4.jpg'), require('../../../assets/loginPics/pic5.jpg')],
@@ -55,8 +63,42 @@ export default {
     }
   },
   methods: {
-
-  }
+    toDetail() {
+      this.$router.push('goodDetail')
+    },
+    add() {
+      if(this.checked) {
+        let tempSum = this.item.price * 1
+        this.$store.commit('changeSum', tempSum)
+      }
+    },
+    reduce() {
+      if(this.checked) {
+        let tempSum = -this.item.price * 1
+        this.$store.commit('changeSum', tempSum)
+      }
+    }
+  },
+  watch: {
+    checkAll() {
+      if(this.checkAll) {
+        this.checked = true
+      } else{
+        this.checked = false
+      }
+    },
+    checked() {
+      if(this.checked) {
+        let tempSum = this.item.price * this.num
+        this.$store.commit('changeSum', tempSum)
+        this.$store.commit('addTitle', this.item.title)
+      } else {
+        let tempSum = -this.item.price * this.num
+        this.$store.commit('changeSum', tempSum)
+        this.$store.commit('deleteTitle', this.item.title)
+      }
+    },
+  },
 }
 </script>
 

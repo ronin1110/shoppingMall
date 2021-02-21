@@ -11,7 +11,7 @@
       <div class="address" v-if="address">{{this.address}}</div>
       <div class="address" v-else>请选择地址……</div>
     </div>
-    <div class="rightPart">
+    <div class="rightPart" @click="search">
       <van-icon name="search" size='1.5rem' />
       <div>输入商品名称</div>
     </div>
@@ -37,6 +37,9 @@ export default {
     }
   },
   methods: {
+    search() {
+      this.$toast.success('功能没做');
+    },
     choiceAdress(el) {
       // console.log(el.target);
       this.$router.replace('map')

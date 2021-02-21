@@ -12,9 +12,9 @@
     <van-tabbar route v-if="flag">
       <van-tabbar-item replace to="/home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item replace to="/category" icon="cluster-o">分类</van-tabbar-item>
-      <van-tabbar-item replace to="/cart" icon="cart-o">购物车</van-tabbar-item>
+      <van-tabbar-item replace to="/cart" icon="cart-o" :badge="cartBadge">购物车</van-tabbar-item>
       <van-tabbar-item replace to="/myInfo" icon="user-circle-o">我的</van-tabbar-item>
-      <van-tabbar-item replace to="/goodDetail" icon="user-circle-o">商品详情页 方便跳转</van-tabbar-item>
+      <!-- <van-tabbar-item replace to="/goodDetail" icon="user-circle-o">商品详情页 方便跳转</van-tabbar-item> -->
     </van-tabbar>
   </div>  
 
@@ -28,13 +28,15 @@ export default {
   computed: {
     flag(){
       return this.$route.name !== 'goodDetail'
+    },
+    cartBadge() {
+      return this.$store.state.cart.length
     }
   },
   mounted() {
     // if(this.$router.name === 'goodDetail') {
     //   flag = false
     // }
-    console.log(this.$route.name === 'goodDetail');
   },
 }
 </script>
